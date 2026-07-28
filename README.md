@@ -32,7 +32,8 @@ dags/
                                              API-triggered runs
                    bridge_autosys          — AutoSys ↔ Airflow coexistence (both directions)
                    gate_manual_approval    — hold/release gate via Variable
-                   secrets_vault_check     — secrets custody + rotation proof
+                   connections_variables_check — Astro-managed credential
+                                             custody + rotation proof
   ops/             long-running / pool-throttle / CPU-load DAGs to run during
                    infrastructure tests (HA, drain, autoscaling)
   reporting/       metrics_report          — run counts, success rates, and
@@ -64,9 +65,11 @@ Many DAGs need no configuration at all — start with `script_runner`,
 ## Configuration
 
 All external references are placeholders defined once in
-`include/validation_kit/config.py`. Create what you need as you go:
+`include/validation_kit/config.py`. Create what you need as you go in the
+**Astro Environment Manager** (Astro UI → Deployment → Environment) or the
+Airflow UI (Admin → Connections/Variables):
 
-**Connections** (in your secrets backend or Admin → Connections):
+**Connections**:
 
 | Connection ID | Type | Used by |
 |---|---|---|
@@ -78,7 +81,8 @@ All external references are placeholders defined once in
 
 **Variables**: `validation_bucket`, `validation_prefix`,
 `validation_emr_serverless_app_id`, `validation_emr_execution_role_arn`,
-`validation_vault_test_secret`, `validation_approval_flag`.
+`validation_test_secret`, `validation_approval_flag`. Mark sensitive values
+as **secret** in Astro so they are masked in the UI.
 
 **Pools** (Admin → Pools): `validation_gate` (1 slot),
 `validation_throttle` (5 slots).

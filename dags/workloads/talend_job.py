@@ -31,7 +31,7 @@ Two candidate patterns are wired behind the `invocation_method` param:
   `--context_param name=value` arguments; the process exit code maps directly to
   task success/failure and drives the configured retries.
 - **api** — placeholder task showing where a TMC `POST /executions` call goes,
-  using the `validation_talend` HTTP connection from Vault.
+  using the `validation_talend` HTTP connection managed in Astro.
 
 ### How to validate (once method confirmed)
 1. Set `invocation_method` and the real command/endpoint.

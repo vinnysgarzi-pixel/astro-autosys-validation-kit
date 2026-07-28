@@ -1,15 +1,16 @@
 """Central configuration for the validation kit.
 
 All external systems are referenced through the placeholder connection IDs and
-variable names below. Create these connections in your secrets backend
-(e.g. HashiCorp Vault — see README.md) — the DAGs never hard-code credentials.
+variable names below. Create these connections and variables in the Astro
+Environment Manager (or the Airflow UI) — the DAGs never hard-code credentials.
 
 To change a connection ID, update it here once; every DAG imports from this
 module.
 """
 
 # ---------------------------------------------------------------------------
-# Connection IDs (create these in Vault under the configured connections_path)
+# Connection IDs (create in the Astro Environment Manager: Astro UI ->
+# Deployment -> Environment -> Connections; or Airflow UI -> Admin -> Connections)
 # ---------------------------------------------------------------------------
 
 # AWS account used for EMR Serverless, S3 sensors, and remote logging tests.
@@ -33,8 +34,8 @@ CONN_INTERNAL_API = "validation_internal_api"
 CONN_AIRFLOW_API = "validation_airflow_api"
 
 # ---------------------------------------------------------------------------
-# Airflow Variables (create in Vault under the configured variables_path,
-# or in the Airflow UI for quick testing)
+# Airflow Variables (create in the Astro Environment Manager or the
+# Airflow UI: Admin -> Variables; mark secret values as secret in Astro)
 # ---------------------------------------------------------------------------
 
 # S3 bucket used by file-watcher / CA7 flag-file / partition tests.
@@ -47,8 +48,8 @@ VAR_PREFIX = "validation_prefix"                # e.g. "astro-validation"
 VAR_EMR_APP_ID = "validation_emr_serverless_app_id"
 VAR_EMR_EXEC_ROLE_ARN = "validation_emr_execution_role_arn"
 
-# Secret name used by the Vault secret-retrieval validation DAG.
-VAR_VAULT_TEST_SECRET = "validation_vault_test_secret"
+# Variable name used by the connection/variable retrieval validation DAG.
+VAR_TEST_SECRET = "validation_test_secret"
 
 # Manual-approval gate flag (set to "approved" to release the gate DAG).
 VAR_APPROVAL_FLAG = "validation_approval_flag"

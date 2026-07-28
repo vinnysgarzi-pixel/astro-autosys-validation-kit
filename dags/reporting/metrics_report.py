@@ -41,7 +41,7 @@ This DAG queries the API for the last `lookback_days` and produces:
    `s3://<validation_bucket>/reports/` when `upload_to_s3=true`.
 
 ### Setup
-Create HTTP connection `validation_airflow_api` in Vault:
+Create HTTP connection `validation_airflow_api` in the Astro Environment Manager (or Airflow UI):
   host = your Deployment API URL (e.g. https://<org>.astronomer.run/<deployment>),
   extra = `{"Authorization": "Bearer <deployment-api-token>"}` header via the
   connection's Headers/extra field.

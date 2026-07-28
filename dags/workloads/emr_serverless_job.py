@@ -25,7 +25,7 @@ DOC = """
 ### What this validates
 1. **EMR Serverless submission** — `EmrServerlessStartJobOperator` submits a Spark
    job to the application configured in the `validation_emr_serverless_app_id` Variable,
-   using the `validation_aws` connection (pulled from Vault at runtime).
+   using the `validation_aws` connection (resolved by name at runtime).
 2. **Parameterization** — trigger this DAG with config, e.g.
    `{"env": "dev", "dataset_date": "2026-07-01", "partition": "region=NE"}`.
    The values flow into the Spark job as arguments via `dag_run.conf` / Params.
@@ -38,7 +38,8 @@ DOC = """
 
 ### How to validate
 1. Set Variables `validation_emr_serverless_app_id`, `validation_emr_execution_role_arn`,
-   `validation_bucket`, and create the `validation_aws` connection in Vault.
+   `validation_bucket`, and create the `validation_aws` connection in the Astro
+   Environment Manager (or Airflow UI).
 2. Trigger with custom conf. Confirm the job appears in the EMR Serverless console.
 3. Open the `record_run_mapping` task log — capture the Airflow-run ↔ EMR-run-id
    line as evidence.

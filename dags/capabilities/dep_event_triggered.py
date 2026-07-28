@@ -26,7 +26,7 @@ DOC = """
 
    The `echo_trigger_payload` task proves the conf payload reached the run.
 2. **Outbound**: `call_internal_api` shows a DAG calling an internal REST
-   service via the `validation_internal_api` HTTP connection (Vault-managed),
+   service via the `validation_internal_api` HTTP connection (managed in Astro),
    with retry-on-failure semantics.
 
 ### How to validate
