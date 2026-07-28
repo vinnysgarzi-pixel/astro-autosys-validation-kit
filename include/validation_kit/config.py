@@ -13,18 +13,11 @@ module.
 # Deployment -> Environment -> Connections; or Airflow UI -> Admin -> Connections)
 # ---------------------------------------------------------------------------
 
-# AWS account used for EMR Serverless, S3 sensors, and remote logging tests.
+# AWS account used for the S3 report export and connection-retrieval check.
 CONN_AWS = "validation_aws"
-
-# HTTP connection pointing at a framework/orchestrator API base URL.
-CONN_ORCHESTRATOR_API = "validation_orchestrator_api"
 
 # HTTP connection for the AutoSys REST API (bridge / coexistence tests).
 CONN_AUTOSYS_API = "validation_autosys_api"
-
-# HTTP connection for Talend invocation (TMC API or internal wrapper service).
-# NOTE: adjust to your Talend invocation method — see dags/workloads/talend_job.py
-CONN_TALEND = "validation_talend"
 
 # Generic internal REST API used for the external-API trigger capability test.
 CONN_INTERNAL_API = "validation_internal_api"
@@ -38,15 +31,8 @@ CONN_AIRFLOW_API = "validation_airflow_api"
 # Airflow UI: Admin -> Variables; mark secret values as secret in Astro)
 # ---------------------------------------------------------------------------
 
-# S3 bucket used by file-watcher / CA7 flag-file / partition tests.
+# S3 bucket used by the report-export task in the metrics DAG.
 VAR_BUCKET = "validation_bucket"                # e.g. "my-validation-bucket"
-
-# Prefix within the bucket where test files are dropped.
-VAR_PREFIX = "validation_prefix"                # e.g. "astro-validation"
-
-# EMR Serverless application ID + job execution role ARN.
-VAR_EMR_APP_ID = "validation_emr_serverless_app_id"
-VAR_EMR_EXEC_ROLE_ARN = "validation_emr_execution_role_arn"
 
 # Variable name used by the connection/variable retrieval validation DAG.
 VAR_TEST_SECRET = "validation_test_secret"
@@ -60,7 +46,6 @@ VAR_APPROVAL_FLAG = "validation_approval_flag"
 # ---------------------------------------------------------------------------
 
 DEFAULT_BUCKET = "REPLACE-ME-validation-bucket"
-DEFAULT_PREFIX = "astro-validation"
 
 # Tag applied to every DAG in this project so they are easy to filter.
 KIT_TAG = "validation-kit"

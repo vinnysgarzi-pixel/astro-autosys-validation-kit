@@ -14,15 +14,9 @@ Built for [Astro Remote Execution](https://www.astronomer.io/docs/astro/remote-e
 
 ```
 dags/
-  workloads/       emr_serverless_job      — EMR Serverless submission with params,
-                                             retries, run-ID mapping
-                   script_runner           — shell/Python scripts, exit-code handling
-                   talend_job              — Talend invocation patterns (command + TMC API)
-                   file_watcher (+simulator) — S3 arrival detection with
-                                             partial-file (size-stability) guard
+  workloads/       script_runner           — shell/Python scripts, exit-code handling
                    date_job_backfill       — date-driven runs, catchup/backfill
                    partition_script        — dynamic per-partition fan-out
-                   ca7_mainframe_dependency (+simulator) — mainframe completion-flag gate
   capabilities/    sched_*                 — cron variants, holiday calendar,
                                              blackout windows, timezones
                    ops_actions_playground  — kill / hold / rerun / mark-success
@@ -73,16 +67,14 @@ Airflow UI (Admin → Connections/Variables):
 
 | Connection ID | Type | Used by |
 |---|---|---|
-| `validation_aws` | aws | EMR, S3 sensors, report export |
+| `validation_aws` | aws | S3 report export, connection-retrieval check |
 | `validation_autosys_api` | http | AutoSys bridge |
 | `validation_internal_api` | http | API-call test (httpbin.org works) |
 | `validation_airflow_api` | http | metrics report (deployment URL + API token) |
-| `validation_talend` | http | Talend TMC path |
 
-**Variables**: `validation_bucket`, `validation_prefix`,
-`validation_emr_serverless_app_id`, `validation_emr_execution_role_arn`,
-`validation_test_secret`, `validation_approval_flag`. Mark sensitive values
-as **secret** in Astro so they are masked in the UI.
+**Variables**: `validation_bucket`, `validation_test_secret`,
+`validation_approval_flag`. Mark sensitive values as **secret** in Astro so
+they are masked in the UI.
 
 **Pools** (Admin → Pools): `validation_gate` (1 slot),
 `validation_throttle` (5 slots).
